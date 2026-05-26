@@ -215,11 +215,11 @@ const AppSidebar = ({
     if (inline) setCollapsed(true);
   }, [inline, setCollapsed]);
 
-  const navItems = [
+  const navItems: Array<{ label: string; Icon: typeof ChatIcon; path: string; match: (p: string) => boolean; beta?: boolean; isNew?: boolean }> = [
     { label: "Chat", Icon: ChatIcon, path: "/chat", match: (p: string) => p.startsWith("/chat") },
     { label: "Media", Icon: MediaIcon, path: "/media", match: (p: string) => p.startsWith("/media") || p.startsWith("/images") || p.startsWith("/videos") || p.startsWith("/lipsync") },
     { label: "Code", Icon: CodeIcon, path: "/build", match: (p: string) => p.startsWith("/build"), beta: true },
-    { label: "Earn", Icon: Gift as unknown as typeof ChatIcon, path: "/settings/referrals", match: (p: string) => p.startsWith("/settings/referrals") },
+    { label: "Earn", Icon: Gift as unknown as typeof ChatIcon, path: "/settings/referrals", match: (p: string) => p.startsWith("/settings/referrals"), isNew: true },
   ];
 
   const handleNewChat = () => {
