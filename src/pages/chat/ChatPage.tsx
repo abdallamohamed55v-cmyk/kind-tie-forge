@@ -3750,9 +3750,9 @@ Ask me anything to get started!`;
                     transition={{ duration: 0.45, ease: "easeOut" }}
                     className="md:hidden w-full text-center px-2"
                   >
-                    <p className="font-display text-[22px] sm:text-[26px] font-light tracking-tight text-foreground/85 leading-none whitespace-nowrap">
+                    <p className="font-display text-[22px] sm:text-[26px] font-light tracking-tight text-foreground/85 leading-tight break-words px-2 max-w-full">
                       {phrase.plain}{" "}
-                      <span className={`${color} font-medium`}>{phrase.accent}</span>
+                      <span className={`${color} font-medium capitalize`}>{phrase.accent}</span>
                       {phrase.tail}
                     </p>
                   </motion.div>
@@ -3767,10 +3767,11 @@ Ask me anything to get started!`;
                 transition={{ duration: 0.35, ease: "easeOut" }}
                 className="hidden md:flex flex-col items-center w-full max-w-2xl"
               >
-                <h1 className="font-display text-4xl lg:text-[44px] font-light tracking-tight text-foreground/90 flex items-center gap-3">
-                  <PegtopIcon className={`w-9 h-9 ${chatMode === "deep-research" ? "text-violet-500" : chatMode === "learning" ? "text-emerald-500" : chatMode === "slides" ? "text-fuchsia-500" : "text-orange-400"}`} />
-                  <span className="whitespace-nowrap">{(() => {
-                    const name = userName || "friend";
+                <h1 className="font-display text-3xl md:text-4xl lg:text-[44px] font-light tracking-tight text-foreground/90 flex items-center gap-3 max-w-full px-4 text-center">
+                  <PegtopIcon className={`w-9 h-9 shrink-0 ${chatMode === "deep-research" ? "text-violet-500" : chatMode === "learning" ? "text-emerald-500" : chatMode === "slides" ? "text-fuchsia-500" : "text-orange-400"}`} />
+                  <span className="break-words capitalize">{(() => {
+                    const raw = userName || "friend";
+                    const name = raw.charAt(0).toUpperCase() + raw.slice(1);
                     const h = new Date().getHours();
                     const part = h < 5 ? "Late night" : h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : h < 21 ? "Good evening" : "Late night";
                     if (isFirstVisit) {
