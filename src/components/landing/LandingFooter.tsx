@@ -104,7 +104,7 @@ const LandingFooter = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-8"
+          className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-9"
         >
           {/* Brand column */}
           <div className="col-span-2">
