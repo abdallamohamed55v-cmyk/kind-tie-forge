@@ -730,7 +730,7 @@ function ProjectsTemplatesTabs({
   const [tab, setTab] = useState<"mine" | "templates">("mine");
 
   return (
-    <div dir="rtl" className="space-y-8">
+    <div className="space-y-8">
       {/* Header with title + segmented tabs */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-2">
