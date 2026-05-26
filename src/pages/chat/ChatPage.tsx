@@ -393,6 +393,30 @@ const ChatPage = () => {
   const [userTracks, setUserTracks] = useState<Array<{ id: string; name: string; storage_path: string }>>([]);
   const [uploadingMusic, setUploadingMusic] = useState(false);
   const [userIntegrations, setUserIntegrations] = useState<string[]>([]);
+  const [megsyOsIntroOpen, setMegsyOsIntroOpen] = useState(false);
+
+  const isProPlusPlan = useCallback(
+    () => ["pro", "elite", "business", "max"].includes((userPlan || "").toLowerCase()),
+    [userPlan]
+  );
+
+  const tryActivateMegsyOs = useCallback(() => {
+    if (!isProPlusPlan()) {
+      toast.info("Megsy OS متاح للباقات Pro فأعلى");
+      setPlusMenuOpen(false);
+      navigate("/pricing");
+      return false;
+    }
+    const seen = typeof window !== "undefined" && localStorage.getItem("megsy_os_intro_seen") === "1";
+    if (!seen) {
+      setPlusMenuOpen(false);
+      setMegsyOsIntroOpen(true);
+      return false;
+    }
+    handleModeChange("operator");
+    setPlusMenuOpen(false);
+    return true;
+  }, [isProPlusPlan, navigate]);
 
   const stopDocsStatusFallback = useCallback(() => {
     if (docsStatusTimerRef.current !== null) {
