@@ -4316,7 +4316,7 @@ Ask me anything to get started!`;
                         },
                         {
                           id: "operator" as const,
-                          label: "Megsy Operator",
+                          label: "Megsy OS",
                           activeCls: "bg-amber-500/15 border-amber-500/40 text-amber-600 dark:text-amber-300",
                           inactiveCls: "bg-background/60 border-border/50 text-foreground/65 hover:text-foreground",
                           bubbleCls: "bg-amber-500/20 text-amber-600 dark:text-amber-300",
