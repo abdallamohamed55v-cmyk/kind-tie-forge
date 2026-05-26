@@ -1,11 +1,6 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Pin, Plus, PanelLeft } from "lucide-react";
-import earnIconUrl from "@/assets/earn-icon.png";
-
-const EarnIcon = ({ className }: { className?: string }) => (
-  <img src={earnIconUrl} alt="" aria-hidden="true" width={20} height={20} loading="lazy" className={className} style={{ objectFit: "contain" }} />
-);
+import { Pin, Plus, PanelLeft, Coins } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSidebarCollapsed } from "@/hooks/useSidebarCollapsed";
