@@ -403,9 +403,9 @@ const ChatPage = () => {
 
   const tryActivateMegsyOs = useCallback(() => {
     if (!isProPlusPlan()) {
-      toast.info("Megsy OS متاح للباقات Pro فأعلى");
+      toast.info("Megsy OS is available on Pro plans and above");
       setPlusMenuOpen(false);
-      navigate("/pricing");
+      setMegsyOsIntroOpen(true);
       return false;
     }
     const seen = typeof window !== "undefined" && localStorage.getItem("megsy_os_intro_seen") === "1";
