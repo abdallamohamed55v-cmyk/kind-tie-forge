@@ -98,6 +98,9 @@ const SecurityPage = lazy(() => import("./pages/settings/SecurityPage"));
 const SupportPage = lazy(() => import("./pages/marketing/SupportPage"));
 const EnterprisePage = lazy(() => import("./pages/marketing/EnterprisePage"));
 const AboutPage = lazy(() => import("./pages/marketing/AboutPage"));
+const BlogPage = lazy(() => import("./pages/marketing/BlogPage"));
+const BlogPostPage = lazy(() => import("./pages/marketing/BlogPostPage"));
+const ComparisonPage = lazy(() => import("./pages/marketing/ComparisonPage"));
 const VideoToTextPage = lazy(() => import("./pages/tools/VideoToTextPage"));
 const AIPersonalizationPage = lazy(() => import("./pages/settings/AIPersonalizationPage"));
 const MemoryPage = lazy(() => import("./pages/settings/MemoryPage"));
@@ -376,6 +379,9 @@ const App = () => {
                   <Route path="/security" element={<SecurityPage />} />
                   <Route path="/enterprise" element={<EnterprisePage />} />
                   <Route path="/about" element={<AboutPage />} />
+                  <Route path="/blog" element={<BlogPage />} />
+                  <Route path="/blog/:slug" element={<BlogPostPage />} />
+                  <Route path="/vs/:slug" element={<ComparisonPage />} />
 
                   {/* Sharing */}
                   <Route path="/share/:shareId" element={<SharedChatPage />} />
