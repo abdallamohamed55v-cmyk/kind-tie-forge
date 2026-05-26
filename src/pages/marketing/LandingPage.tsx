@@ -126,13 +126,13 @@ const LandingPage = ({ locale = "en" }: LandingPageProps) => {
           <HeroSection />
           <Suspense fallback={<SectionFallback />}>
             <StatsMarquee />
-            <MegsyOSSection />
-            <CreatorToolsSection />
             <HorizontalGallery />
+            <CreatorToolsSection />
             <StickyFeatureTabs />
             <MegsyChatModelsSection />
+            <MegsyImageModelsSection />
             <ParallaxShowcase />
-            
+            <MegsyOSSection />
             <ShowcaseGallery />
             <MegsyCodeModelsSection />
             <CreativeBlueprintsSection />
