@@ -290,6 +290,10 @@ const TranslationWrapper = ({ children }: TranslationWrapperProps) => {
       } else {
         setGoogTransCookie(LANG_MAP[lang] || lang);
       }
+      // Make sure Google Translate is booted (skipped on initial idle load when lang was 'en')
+      if (lang !== "en" && !document.getElementById("google-translate-script")) {
+        initGoogleTranslate();
+      }
 
       triggerTranslateOnce(lang);
     };
