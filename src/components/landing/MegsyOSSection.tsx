@@ -54,20 +54,6 @@ const modes = [
     href: "/auth",
   },
   {
-    name: "VOICE",
-    title: "Studio-grade\nvoice & lip-sync",
-    desc: "Text-to-speech, voice cloning and lip-sync. Give your characters a real voice that matches their mouth movements.",
-    cta: "Open Voice",
-    href: "/auth",
-  },
-  {
-    name: "SHOPPING",
-    title: "Find & compare\nproducts instantly",
-    desc: "Search across stores, compare prices and specs, and get smart recommendations tailored to what you actually need.",
-    cta: "Open Shopping",
-    href: "/auth",
-  },
-  {
     name: "INTEGRATIONS",
     title: "Connect 30+\nfavorite tools",
     desc: "Gmail, Slack, Notion, GitHub, HubSpot, Stripe, Shopify and more — Megsy works directly inside your stack.",
@@ -132,7 +118,7 @@ const MegsyOSSection = () => {
             WORKS
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-white/55 md:text-lg">
-            Every mode of Megsy in one workspace — chat, research, learning, slides, docs, images, video, voice and a full autonomous OS.
+            Every mode of Megsy in one workspace — chat, research, learning, slides, docs, images, video and a full autonomous OS.
           </p>
         </motion.div>
 

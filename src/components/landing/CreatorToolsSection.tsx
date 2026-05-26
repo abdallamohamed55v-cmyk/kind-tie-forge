@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
@@ -47,6 +47,7 @@ const allCards: CardItem[] = [...imageCards, ...videoCards];
 const ArtistStoriesSection = () => {
   const navigate = useNavigate();
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const [paused, setPaused] = useState(false);
 
   const scroll = (dir: -1 | 1) => {
     const el = scrollerRef.current;
@@ -55,6 +56,32 @@ const ArtistStoriesSection = () => {
     const step = card ? card.offsetWidth + 16 : 320;
     el.scrollBy({ left: step * dir, behavior: "smooth" });
   };
+
+  // Auto-scroll: seamless loop. When we reach the halfway point (end of original list),
+  // snap back to the start without animation so it feels infinite.
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let rafId = 0;
+    let last = performance.now();
+    const SPEED = 40; // px per second
+
+    const tick = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      if (!paused) {
+        const half = el.scrollWidth / 2;
+        let next = el.scrollLeft + SPEED * dt;
+        if (next >= half) next -= half;
+        el.scrollLeft = next;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [paused]);
 
   return (
     <section className="relative overflow-hidden bg-black py-16 md:py-24">
@@ -96,9 +123,13 @@ const ArtistStoriesSection = () => {
 
         <div
           ref={scrollerRef}
-          className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-6 md:-mx-6 md:px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onTouchStart={() => setPaused(true)}
+          onTouchEnd={() => setPaused(false)}
+          className="-mx-5 flex gap-4 overflow-x-auto px-5 pb-6 md:-mx-6 md:px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {allCards.map((c, i) => {
+          {[...allCards, ...allCards].map((c, i) => {
             const accent = c.kind === "Image" ? "text-emerald-400" : "text-sky-400";
             return (
               <motion.button
@@ -109,7 +140,7 @@ const ArtistStoriesSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.4) }}
-                className="group relative flex w-[78%] shrink-0 snap-start flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 text-left transition hover:border-white/30 sm:w-[48%] md:w-[32%] lg:w-[26%]"
+                className="group relative flex w-[78%] shrink-0 flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 text-left transition hover:border-white/30 sm:w-[48%] md:w-[32%] lg:w-[26%]"
               >
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-800">
                   {c.preview ? (
