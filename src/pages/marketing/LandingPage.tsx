@@ -23,6 +23,7 @@ const CreativeBlueprintsSection = lazy(() => import("@/components/landing/Creati
 const MegsyChatModelsSection = lazy(() => import("@/components/landing/MegsyChatModelsSection"));
 const MegsyImageModelsSection = lazy(() => import("@/components/landing/MegsyImageModelsSection"));
 const MegsyCodeModelsSection = lazy(() => import("@/components/landing/MegsyCodeModelsSection"));
+const MegsyOSSection = lazy(() => import("@/components/landing/MegsyOSSection"));
 const HowItWorks = lazy(() => import("@/components/landing/HowItWorks"));
 const PricingPreview = lazy(() => import("@/components/landing/PricingPreview"));
 const ReferralSection = lazy(() => import("@/components/landing/ReferralSection"));
@@ -132,6 +133,7 @@ const LandingPage = ({ locale = "en" }: LandingPageProps) => {
             
             <ShowcaseGallery />
             <MegsyCodeModelsSection />
+            <MegsyOSSection />
             <CreativeBlueprintsSection />
             <HowItWorks />
             <PricingPreview />
