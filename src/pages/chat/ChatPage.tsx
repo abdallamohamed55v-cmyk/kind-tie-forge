@@ -158,12 +158,14 @@ const EMPTY_REACTIONS: { id: string; emoji: string; user_id: string }[] = [];
 
 type ChatMode = "normal" | "learning" | "shopping" | "deep-research" | "slides" | "operator";
 
+const LANG_RULE = "CRITICAL: Always reply in the same language AND dialect the user wrote in. If they wrote in Egyptian Arabic, reply in Egyptian Arabic. If Gulf Arabic, reply in Gulf Arabic. If English, reply in English. Match their tone and formality.";
+
 const MODE_PROMPTS: Record<ChatMode, string> = {
-  normal: "",
-  learning: "You are in Learning Mode. Explain everything step by step with examples, analogies, and clear breakdowns. Make complex topics easy to understand. Use bullet points, numbered steps, and structured format.",
-  shopping: "You are in Shopping Mode. Help the user find the best products, compare prices, suggest alternatives, and provide purchase recommendations. Include pros/cons when comparing items.",
-  "deep-research": "",
-  slides: "",
+  normal: LANG_RULE,
+  learning: LANG_RULE + " You are in Learning Mode. Explain everything step by step with examples, analogies, and clear breakdowns. Make complex topics easy to understand. Use bullet points, numbered steps, and structured format.",
+  shopping: LANG_RULE + " You are in Shopping Mode. Help the user find the best products, compare prices, suggest alternatives, and provide purchase recommendations. Include pros/cons when comparing items.",
+  "deep-research": LANG_RULE,
+  slides: LANG_RULE,
   operator: `You are "Megsy Operator" — a multi-layer AI agent inside the Megsy platform, similar to Manus and Kimi, capable of fully controlling a virtual computer and executing any digital task end-to-end without human intervention.
 
 🧠 Internal Architecture (Multi-Layer Agent System):
@@ -403,9 +405,9 @@ const ChatPage = () => {
 
   const tryActivateMegsyOs = useCallback(() => {
     if (!isProPlusPlan()) {
-      toast.info("Megsy OS متاح للباقات Pro فأعلى");
+      toast.info("Megsy OS is available on Pro plans and above");
       setPlusMenuOpen(false);
-      navigate("/pricing");
+      setMegsyOsIntroOpen(true);
       return false;
     }
     const seen = typeof window !== "undefined" && localStorage.getItem("megsy_os_intro_seen") === "1";
@@ -3003,6 +3005,30 @@ Ask me anything to get started!`;
                   {/* Divider between settings and agents */}
                   <div className="h-px bg-border/60 my-2 mx-2" />
 
+                  {/* Megsy OS — Pro+ only, first in list */}
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    transition={iosSpring}
+                    onClick={() => {
+                      if (chatMode === "operator") {
+                        handleModeChange("normal");
+                        setPlusMenuOpen(false);
+                      } else {
+                        tryActivateMegsyOs();
+                      }
+                    }}
+                    className="w-full flex items-center gap-4 px-2 py-3.5 text-left"
+                  >
+                    <Bot className="w-[22px] h-[22px] text-foreground/80 shrink-0" strokeWidth={1.5} />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[15.5px] font-semibold text-foreground/90 leading-tight">Megsy OS</span>
+                        <span className="text-[9px] font-bold px-1.5 py-px rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">PRO</span>
+                      </div>
+                      <div className="text-[12.5px] text-muted-foreground leading-tight mt-0.5 truncate whitespace-nowrap">Autonomous all-purpose agent — works 24/7</div>
+                    </div>
+                  </motion.button>
+
                   {/* Agents — rendered as plain rows, no section header */}
                   {([
                       { id: "deep-research", label: "Deep Research", desc: "In-depth multi-source reports", Icon: Telescope },
@@ -3041,30 +3067,6 @@ Ask me anything to get started!`;
                         </motion.button>
                       );
                     })}
-
-                  {/* Megsy OS — Pro+ only */}
-                  <motion.button
-                    whileTap={{ scale: 0.98 }}
-                    transition={iosSpring}
-                    onClick={() => {
-                      if (chatMode === "operator") {
-                        handleModeChange("normal");
-                        setPlusMenuOpen(false);
-                      } else {
-                        tryActivateMegsyOs();
-                      }
-                    }}
-                    className="w-full flex items-center gap-4 px-2 py-3.5 text-left"
-                  >
-                    <img src={megsyOsLogo} alt="" width={22} height={22} className="w-[22px] h-[22px] shrink-0 rounded-md object-contain" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[15.5px] font-semibold text-foreground/90 leading-tight">Megsy OS</span>
-                        <span className="text-[9px] font-bold px-1.5 py-px rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">PRO</span>
-                      </div>
-                      <div className="text-[12.5px] text-muted-foreground leading-tight mt-0.5 truncate whitespace-nowrap">كمبيوتر سحابي يبني وينشر تطبيقاتك</div>
-                    </div>
-                  </motion.button>
                 </div>
               )}
             </motion.div>
@@ -3466,7 +3468,8 @@ Ask me anything to get started!`;
                 setPlusExpanded(false);
               }
             }}
-            className="flex justify-center pb-2 pt-2 shrink-0 cursor-grab active:cursor-grabbing touch-none"
+            onClick={() => setPlusMenuOpen(false)}
+            className="flex justify-center pb-2 pt-2 shrink-0 cursor-pointer touch-none"
           >
             <div className="w-10 h-1.5 rounded-full bg-foreground/20" />
           </motion.div>
@@ -4321,14 +4324,11 @@ Ask me anything to get started!`;
                         {
                           id: "operator" as const,
                           label: "Megsy OS",
-                          activeCls: "bg-amber-500/15 border-amber-500/40 text-amber-600 dark:text-amber-300",
+                          activeCls: "bg-fuchsia-500/15 border-fuchsia-500/40 text-fuchsia-600 dark:text-fuchsia-300",
                           inactiveCls: "bg-background/60 border-border/50 text-foreground/65 hover:text-foreground",
-                          bubbleCls: "bg-amber-500/20 text-amber-600 dark:text-amber-300",
+                          bubbleCls: "bg-fuchsia-500/20 text-fuchsia-600 dark:text-fuchsia-300",
                           icon: (
-                            <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M12 2a4 4 0 0 0-4 4v1a3 3 0 0 0-3 3v2a3 3 0 0 0 1 2.2V18a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-3.8A3 3 0 0 0 19 12v-2a3 3 0 0 0-3-3V6a4 4 0 0 0-4-4z" />
-                              <path d="M9 13h.01M15 13h.01M9 17h6" />
-                            </svg>
+                            <Bot className="w-3 h-3" strokeWidth={2.4} />
                           ),
                         },
                       ];
@@ -4649,36 +4649,43 @@ Ask me anything to get started!`;
               initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
               transition={{ type: "spring", stiffness: 380, damping: 36 }}
               className="fixed inset-x-0 bottom-0 z-[81] bg-background rounded-t-[28px] border-t border-border/40 px-6 pt-3 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] max-w-md mx-auto"
-              dir="rtl"
             >
               <div className="flex justify-center pb-3"><div className="w-10 h-1.5 rounded-full bg-foreground/20" /></div>
               <div className="flex flex-col items-center text-center gap-4">
-                <img src={megsyOsLogo} alt="Megsy OS" width={96} height={96} className="w-24 h-24 object-contain drop-shadow-xl" />
+                <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center shadow-xl shadow-fuchsia-500/30">
+                  <Bot className="w-10 h-10 text-white" strokeWidth={1.6} />
+                </div>
                 <div>
                   <h2 className="text-2xl font-bold text-foreground">Megsy OS</h2>
-                  <p className="text-sm text-muted-foreground mt-1">كمبيوتر سحابي ذكي بين يديك</p>
+                  <p className="text-sm text-muted-foreground mt-1">Your autonomous AI computer — works 24/7</p>
                 </div>
-                <div className="w-full text-right space-y-2.5 text-[14px] text-foreground/85 bg-secondary/50 rounded-2xl p-4">
-                  <p>• يخطط ويبحث على الإنترنت بشكل مستقل</p>
-                  <p>• يبرمج وينشئ تطبيقات حقيقية وينشرها لك</p>
-                  <p>• يولّد صور وتقارير ويتصفح المواقع</p>
-                  <p>• يرسل لك رابط التطبيق المنشور في المحادثة</p>
+                <div className="w-full text-left space-y-2.5 text-[14px] text-foreground/85 bg-secondary/50 rounded-2xl p-4">
+                  <p>• Specialist in everything — plans, researches, writes, builds</p>
+                  <p>• Browses the web and uses real tools autonomously</p>
+                  <p>• Codes, deploys & sends you the live app link in chat</p>
+                  <p>• Generates images, reports, and full strategies</p>
+                  <p>• Runs around the clock without supervision</p>
                 </div>
                 <button
                   onClick={() => {
+                    if (!isProPlusPlan()) {
+                      setMegsyOsIntroOpen(false);
+                      navigate("/pricing");
+                      return;
+                    }
                     try { localStorage.setItem("megsy_os_intro_seen", "1"); } catch {}
                     setMegsyOsIntroOpen(false);
                     handleModeChange("operator");
                   }}
-                  className="w-full h-12 rounded-2xl bg-primary text-primary-foreground font-semibold text-[15px] hover:opacity-90 transition-opacity"
+                  className="w-full h-12 rounded-2xl bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-semibold text-[15px] hover:opacity-90 transition-opacity"
                 >
-                  ابدأ الآن
+                  {isProPlusPlan() ? "Start Now" : "Upgrade to Pro"}
                 </button>
                 <button
                   onClick={() => setMegsyOsIntroOpen(false)}
                   className="text-[13px] text-muted-foreground hover:text-foreground"
                 >
-                  لاحقاً
+                  Maybe later
                 </button>
               </div>
             </motion.div>
