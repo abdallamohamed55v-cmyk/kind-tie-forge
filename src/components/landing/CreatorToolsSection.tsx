@@ -140,7 +140,7 @@ const ArtistStoriesSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.4) }}
-                className="group relative flex w-[78%] shrink-0 snap-start flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 text-left transition hover:border-white/30 sm:w-[48%] md:w-[32%] lg:w-[26%]"
+                className="group relative flex w-[78%] shrink-0 flex-col overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 text-left transition hover:border-white/30 sm:w-[48%] md:w-[32%] lg:w-[26%]"
               >
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-800">
                   {c.preview ? (
