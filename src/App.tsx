@@ -214,14 +214,14 @@ const App = () => {
     };
     // Allow `?theme=dark|light|ocean|sunset` URL override (also persists)
     const urlTheme = new URLSearchParams(window.location.search).get("theme");
-    const savedTheme = urlTheme || localStorage.getItem("theme") || "light";
+    const savedTheme = urlTheme || localStorage.getItem("theme") || "dark";
     if (urlTheme) localStorage.setItem("theme", urlTheme);
     applyTheme(savedTheme);
     const savedAccent = localStorage.getItem("accent");
     if (savedAccent) document.documentElement.style.setProperty("--primary", savedAccent);
 
     // React to theme changes from anywhere in the app
-    const onThemeChange = () => applyTheme(localStorage.getItem("theme") || "light");
+    const onThemeChange = () => applyTheme(localStorage.getItem("theme") || "dark");
     window.addEventListener("themechange-custom", onThemeChange);
     window.addEventListener("storage", (e) => { if (!e.key || e.key === "theme") onThemeChange(); });
 
