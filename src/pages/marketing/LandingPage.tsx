@@ -128,12 +128,12 @@ const LandingPage = ({ locale = "en" }: LandingPageProps) => {
             
             <HorizontalGallery />
             <StickyFeatureTabs />
+            <MegsyOSSection />
             <MegsyChatModelsSection />
             <ParallaxShowcase />
             
             <ShowcaseGallery />
             <MegsyCodeModelsSection />
-            <MegsyOSSection />
             <CreativeBlueprintsSection />
             <HowItWorks />
             <PricingPreview />
