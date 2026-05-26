@@ -4646,36 +4646,43 @@ Ask me anything to get started!`;
               initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
               transition={{ type: "spring", stiffness: 380, damping: 36 }}
               className="fixed inset-x-0 bottom-0 z-[81] bg-background rounded-t-[28px] border-t border-border/40 px-6 pt-3 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] max-w-md mx-auto"
-              dir="rtl"
             >
               <div className="flex justify-center pb-3"><div className="w-10 h-1.5 rounded-full bg-foreground/20" /></div>
               <div className="flex flex-col items-center text-center gap-4">
-                <img src={megsyOsLogo} alt="Megsy OS" width={96} height={96} className="w-24 h-24 object-contain drop-shadow-xl" />
+                <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center shadow-xl shadow-fuchsia-500/30">
+                  <Bot className="w-10 h-10 text-white" strokeWidth={1.6} />
+                </div>
                 <div>
                   <h2 className="text-2xl font-bold text-foreground">Megsy OS</h2>
-                  <p className="text-sm text-muted-foreground mt-1">كمبيوتر سحابي ذكي بين يديك</p>
+                  <p className="text-sm text-muted-foreground mt-1">Your autonomous AI computer — works 24/7</p>
                 </div>
-                <div className="w-full text-right space-y-2.5 text-[14px] text-foreground/85 bg-secondary/50 rounded-2xl p-4">
-                  <p>• يخطط ويبحث على الإنترنت بشكل مستقل</p>
-                  <p>• يبرمج وينشئ تطبيقات حقيقية وينشرها لك</p>
-                  <p>• يولّد صور وتقارير ويتصفح المواقع</p>
-                  <p>• يرسل لك رابط التطبيق المنشور في المحادثة</p>
+                <div className="w-full text-left space-y-2.5 text-[14px] text-foreground/85 bg-secondary/50 rounded-2xl p-4">
+                  <p>• Specialist in everything — plans, researches, writes, builds</p>
+                  <p>• Browses the web and uses real tools autonomously</p>
+                  <p>• Codes, deploys & sends you the live app link in chat</p>
+                  <p>• Generates images, reports, and full strategies</p>
+                  <p>• Runs around the clock without supervision</p>
                 </div>
                 <button
                   onClick={() => {
+                    if (!isProPlusPlan()) {
+                      setMegsyOsIntroOpen(false);
+                      navigate("/pricing");
+                      return;
+                    }
                     try { localStorage.setItem("megsy_os_intro_seen", "1"); } catch {}
                     setMegsyOsIntroOpen(false);
                     handleModeChange("operator");
                   }}
-                  className="w-full h-12 rounded-2xl bg-primary text-primary-foreground font-semibold text-[15px] hover:opacity-90 transition-opacity"
+                  className="w-full h-12 rounded-2xl bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-semibold text-[15px] hover:opacity-90 transition-opacity"
                 >
-                  ابدأ الآن
+                  {isProPlusPlan() ? "Start Now" : "Upgrade to Pro"}
                 </button>
                 <button
                   onClick={() => setMegsyOsIntroOpen(false)}
                   className="text-[13px] text-muted-foreground hover:text-foreground"
                 >
-                  لاحقاً
+                  Maybe later
                 </button>
               </div>
             </motion.div>
