@@ -735,12 +735,12 @@ function ProjectsTemplatesTabs({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-2">
           <h1
-            className="text-5xl md:text-6xl italic text-foreground leading-none"
+            className="text-5xl md:text-6xl italic text-foreground leading-none text-left"
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
             {tab === "mine" ? "Your projects" : "Templates"}
           </h1>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm text-left">
             {tab === "mine" ? "Resume where you left off" : "Get started fast from a ready template"}
           </p>
         </div>
