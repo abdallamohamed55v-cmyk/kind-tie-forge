@@ -28,7 +28,7 @@ export const AGENTS: AgentDef[] = [
   { id: "learning", label: "Learning", mention: "@learning", icon: GraduationCap, color: "text-emerald-400", bg: "bg-emerald-500/15", description: "Step-by-step explanations", category: "chat" },
   { id: "shopping", label: "Shopping", mention: "@shopping", icon: ShoppingCart, color: "text-amber-400", bg: "bg-amber-500/15", description: "Product search & compare", category: "chat" },
   { id: "deep-research", label: "Deep Research", mention: "@research", icon: Search, color: "text-blue-400", bg: "bg-blue-500/15", description: "In-depth web research", category: "chat" },
-  { id: "operator", label: "Computer Agent", mention: "@operator", icon: Bot, color: "text-fuchsia-400", bg: "bg-fuchsia-500/15", description: "Autonomous agent: plans, browses, codes, generates — end-to-end (Kimi K2 + E2B)", category: "chat" },
+  { id: "operator", label: "Megsy OS", mention: "@megsy-os", icon: Bot, color: "text-fuchsia-400", bg: "bg-fuchsia-500/15", description: "كمبيوتر سحابي كامل: يخطط، يبحث، يبرمج، ينشر تطبيقات (Pro+)", category: "chat" },
 
   // File agents
   { id: "slides", label: "Slides", mention: "@slides", icon: Presentation, color: "text-violet-400", bg: "bg-violet-500/15", description: "Create presentations", category: "files" },
