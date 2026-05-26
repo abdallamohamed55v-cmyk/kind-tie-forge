@@ -15,6 +15,17 @@ const footerLinks = {
     { label: "Enterprise", href: "/enterprise" },
     { label: "About", href: "/about" },
   ],
+  Resources: [
+    { label: "Blog", href: "/blog" },
+    { label: "All-in-one vs Stack", href: "/blog/all-in-one-ai-platform-vs-multiple-subscriptions" },
+    { label: "Prompt Writing Guide", href: "/blog/how-to-write-prompts-for-ai-image-generation" },
+    { label: "AI Video 2026", href: "/blog/ai-video-generation-2026-state-of-the-art" },
+  ],
+  Compare: [
+    { label: "Megsy vs ChatGPT", href: "/vs/chatgpt" },
+    { label: "Megsy vs Midjourney", href: "/vs/midjourney" },
+    { label: "Megsy vs Lovable", href: "/vs/lovable" },
+  ],
   Company: [
     { label: "Security", href: "/security" },
     { label: "Support", href: "/support" },
