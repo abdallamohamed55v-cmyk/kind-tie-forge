@@ -4321,14 +4321,11 @@ Ask me anything to get started!`;
                         {
                           id: "operator" as const,
                           label: "Megsy OS",
-                          activeCls: "bg-amber-500/15 border-amber-500/40 text-amber-600 dark:text-amber-300",
+                          activeCls: "bg-fuchsia-500/15 border-fuchsia-500/40 text-fuchsia-600 dark:text-fuchsia-300",
                           inactiveCls: "bg-background/60 border-border/50 text-foreground/65 hover:text-foreground",
-                          bubbleCls: "bg-amber-500/20 text-amber-600 dark:text-amber-300",
+                          bubbleCls: "bg-fuchsia-500/20 text-fuchsia-600 dark:text-fuchsia-300",
                           icon: (
-                            <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M12 2a4 4 0 0 0-4 4v1a3 3 0 0 0-3 3v2a3 3 0 0 0 1 2.2V18a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-3.8A3 3 0 0 0 19 12v-2a3 3 0 0 0-3-3V6a4 4 0 0 0-4-4z" />
-                              <path d="M9 13h.01M15 13h.01M9 17h6" />
-                            </svg>
+                            <Bot className="w-3 h-3" strokeWidth={2.4} />
                           ),
                         },
                       ];
