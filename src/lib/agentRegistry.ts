@@ -1,7 +1,7 @@
 import {
   GraduationCap, ShoppingCart, Search, Presentation, PenTool,
   FileSpreadsheet, ScrollText, ImageIcon, Video, Mic,
-  FileText, Sparkles, Brain, Mail, FileStack
+  FileText, Sparkles, Brain, Mail, FileStack, Bot
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
