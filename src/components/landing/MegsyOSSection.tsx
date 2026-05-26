@@ -1,86 +1,175 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Bot, Sparkles, Globe, Code2, Rocket, Clock } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const features = [
-  { icon: Bot, title: "Autonomous Agent", desc: "Plans, decides and executes tasks end-to-end without hand-holding." },
-  { icon: Globe, title: "Browses the Web", desc: "Researches, scrapes and gathers live information across the internet." },
-  { icon: Code2, title: "Builds & Codes", desc: "Generates full apps, scripts and tools — then ships them for you." },
-  { icon: Rocket, title: "Deploys & Publishes", desc: "Pushes apps live and hands you a shareable link inside the chat." },
-  { icon: Clock, title: "Works 24/7", desc: "Runs in the cloud around the clock — no laptop, no babysitting." },
-  { icon: Sparkles, title: "Every Domain", desc: "Research, marketing, ops, dev, design — literally anything you throw at it." },
+type Mode = {
+  brand: string;
+  title: string;
+  description: string;
+  cta: string;
+  href: string;
+  brandStyle?: React.CSSProperties;
+};
+
+const modes: Mode[] = [
+  {
+    brand: "MEGSY OS",
+    title: "Your autonomous\ncloud computer",
+    description:
+      "Megsy OS plans, researches, codes and deploys full apps on its own — and hands you back a live link. Works 24/7 in the cloud.",
+    cta: "Try Megsy OS",
+    href: "/pricing",
+    brandStyle: { fontFamily: '"Dela Gothic One", sans-serif', letterSpacing: "-0.02em" },
+  },
+  {
+    brand: "DEEP RESEARCH",
+    title: "Hours of research\nin minutes",
+    description:
+      "Megsy crawls the web, reads dozens of sources and delivers a sourced, structured report — ready to share with your team.",
+    cta: "Start researching",
+    href: "/chat",
+    brandStyle: { fontFamily: '"Dela Gothic One", sans-serif', letterSpacing: "-0.02em" },
+  },
+  {
+    brand: "LEARNING",
+    title: "Master anything,\nstep by step",
+    description:
+      "Personalized lessons, examples and quizzes that adapt to your level — from coding basics to advanced math, in your own language.",
+    cta: "Start learning",
+    href: "/chat",
+    brandStyle: { fontFamily: '"Dela Gothic One", sans-serif', letterSpacing: "-0.02em" },
+  },
+  {
+    brand: "SHOPPING",
+    title: "Smarter shopping,\nbetter prices",
+    description:
+      "Compare products, read real reviews and find the best deal across the web — Megsy picks what fits your budget and needs.",
+    cta: "Shop with Megsy",
+    href: "/chat",
+    brandStyle: { fontFamily: '"Dela Gothic One", sans-serif', letterSpacing: "-0.02em" },
+  },
+  {
+    brand: "SLIDES",
+    title: "Pitch decks built\nin one prompt",
+    description:
+      "From outline to designed presentation in seconds — themes, charts and speaker notes included. Export to PPTX or share a link.",
+    cta: "Create slides",
+    href: "/chat",
+    brandStyle: { fontFamily: '"Dela Gothic One", sans-serif', letterSpacing: "-0.02em" },
+  },
+  {
+    brand: "DOCS",
+    title: "Reports & contracts\nready to send",
+    description:
+      "Professional templates for reports, contracts and research — auto-formatted, multilingual, and ready to download.",
+    cta: "Open Docs",
+    href: "/chat",
+    brandStyle: { fontFamily: '"Dela Gothic One", sans-serif', letterSpacing: "-0.02em" },
+  },
 ];
 
 const MegsyOSSection = () => {
   const navigate = useNavigate();
+  const [index, setIndex] = useState(0);
+
+  const go = (dir: number) => {
+    setIndex((i) => (i + dir + modes.length) % modes.length);
+  };
+
+  const current = modes[index];
 
   return (
-    <section className="relative overflow-hidden bg-black py-20 md:py-32">
-      <div className="absolute left-1/2 top-1/2 -z-0 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/15 blur-[200px]" />
-      <div className="absolute right-0 top-20 -z-0 h-[400px] w-[400px] rounded-full bg-pink-500/10 blur-[150px]" />
-
-      <div className="relative mx-auto max-w-6xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-14 text-center"
-        >
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-fuchsia-500/30 bg-fuchsia-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-fuchsia-300">
-            <Bot className="h-3.5 w-3.5" /> Megsy OS · Pro+
-          </div>
-          <h2 className="font-display text-4xl font-black uppercase tracking-tight text-white md:text-6xl">
-            YOUR AUTONOMOUS{" "}
-            <span className="bg-gradient-to-r from-fuchsia-400 via-pink-500 to-orange-400 bg-clip-text text-transparent">
-              CLOUD COMPUTER.
-            </span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-white/55 md:text-lg">
-            Megsy OS is a full cloud workstation with its own browser, terminal and toolchain.
-            Give it a goal — it plans, researches, builds, deploys and delivers the link.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((f, i) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="group rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition-all hover:border-fuchsia-500/40 hover:bg-fuchsia-500/[0.04]"
-            >
-              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500/20 to-pink-500/10 text-fuchsia-300 ring-1 ring-fuchsia-500/30 transition-transform group-hover:scale-110">
-                <f.icon className="h-5 w-5" />
-              </div>
-              <h3 className="mb-2 font-display text-lg font-black uppercase text-white">{f.title}</h3>
-              <p className="text-sm leading-relaxed text-white/55">{f.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-
+    <section className="relative bg-black py-16 md:py-24">
+      <div className="mx-auto max-w-6xl px-5 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          transition={{ duration: 0.5 }}
+          className="mb-8 text-center md:mb-12"
         >
-          <button
-            onClick={() => navigate("/auth")}
-            className="rounded-full bg-gradient-to-r from-fuchsia-500 via-pink-500 to-orange-400 px-8 py-3.5 text-sm font-bold text-white shadow-[0_10px_40px_-10px_rgba(236,72,153,0.6)] transition-transform hover:scale-105"
+          <h3
+            style={{ fontFamily: '"Dela Gothic One", sans-serif' }}
+            className="text-3xl uppercase leading-[0.95] tracking-tight text-white md:text-5xl"
           >
-            Try Megsy OS
-          </button>
-          <button
-            onClick={() => navigate("/pricing")}
-            className="rounded-full border border-white/15 px-8 py-3.5 text-sm font-bold text-white/80 transition-colors hover:border-white/30 hover:text-white"
-          >
-            View Plans
-          </button>
+            Every mode, one Megsy
+          </h3>
+          <p className="mx-auto mt-3 max-w-2xl text-[13px] text-white/60 md:text-base">
+            Switch between specialized modes — research, learning, shopping, slides, autonomous OS and more — all inside one chat.
+          </p>
         </motion.div>
+
+        <div className="relative">
+          {/* Arrows */}
+          <button
+            onClick={() => go(-1)}
+            aria-label="Previous mode"
+            className="absolute left-0 top-1/2 z-20 -translate-y-1/2 -translate-x-2 rounded-full border border-white/15 bg-black/60 p-3 text-white backdrop-blur transition hover:border-white/40 hover:bg-black/80 md:-translate-x-6"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={() => go(1)}
+            aria-label="Next mode"
+            className="absolute right-0 top-1/2 z-20 -translate-y-1/2 translate-x-2 rounded-full border border-white/15 bg-black/60 p-3 text-white backdrop-blur transition hover:border-white/40 hover:bg-black/80 md:translate-x-6"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+
+          {/* Card */}
+          <div className="relative mx-auto w-full max-w-2xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current.brand}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="relative overflow-hidden rounded-t-[32px] rounded-b-[200px] border border-white/10 bg-gradient-to-b from-neutral-900 to-neutral-950 px-6 py-12 text-center md:px-12 md:py-16"
+              >
+                <h4
+                  style={current.brandStyle}
+                  className="text-3xl uppercase text-white md:text-5xl"
+                >
+                  {current.brand}
+                </h4>
+
+                <p
+                  style={{ fontFamily: '"Dela Gothic One", sans-serif' }}
+                  className="mx-auto mt-8 max-w-md whitespace-pre-line text-xl leading-tight text-white md:text-3xl"
+                >
+                  {current.title}
+                </p>
+
+                <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-white/55 md:text-base">
+                  {current.description}
+                </p>
+
+                <button
+                  onClick={() => navigate(current.href)}
+                  className="mt-8 rounded-full border border-white/25 px-7 py-3 text-sm font-medium text-white transition hover:border-white/60 hover:bg-white/5"
+                >
+                  {current.cta}
+                </button>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots */}
+          <div className="mt-8 flex items-center justify-center gap-2">
+            {modes.map((m, i) => (
+              <button
+                key={m.brand}
+                onClick={() => setIndex(i)}
+                aria-label={`Go to ${m.brand}`}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === index ? "w-8 bg-white" : "w-1.5 bg-white/30 hover:bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
