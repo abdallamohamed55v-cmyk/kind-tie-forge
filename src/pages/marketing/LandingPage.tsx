@@ -32,7 +32,16 @@ const CTASection = lazy(() => import("@/components/landing/CTASection"));
 const FinalHeroCTA = lazy(() => import("@/components/landing/FinalHeroCTA"));
 const LandingFooter = lazy(() => import("@/components/landing/LandingFooter"));
 
-const SectionFallback = () => <div className="min-h-[200px]" />;
+const SectionFallback = () => (
+  <div className="min-h-[200px] w-full px-4 py-16 mx-auto max-w-7xl">
+    <div className="h-8 w-48 rounded-md bg-foreground/[0.04] animate-pulse mb-6" />
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="h-32 rounded-xl bg-foreground/[0.04] animate-pulse" />
+      <div className="h-32 rounded-xl bg-foreground/[0.04] animate-pulse" />
+      <div className="h-32 rounded-xl bg-foreground/[0.04] animate-pulse" />
+    </div>
+  </div>
+);
 
 const LandingSEO = () => {
   const { locale, content } = useLandingContent();
