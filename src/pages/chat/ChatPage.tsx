@@ -3040,6 +3040,30 @@ Ask me anything to get started!`;
                         </motion.button>
                       );
                     })}
+
+                  {/* Megsy OS — Pro+ only */}
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    transition={iosSpring}
+                    onClick={() => {
+                      if (chatMode === "operator") {
+                        handleModeChange("normal");
+                        setPlusMenuOpen(false);
+                      } else {
+                        tryActivateMegsyOs();
+                      }
+                    }}
+                    className="w-full flex items-center gap-4 px-2 py-3.5 text-left"
+                  >
+                    <img src={megsyOsLogo} alt="" width={22} height={22} className="w-[22px] h-[22px] shrink-0 rounded-md object-contain" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[15.5px] font-semibold text-foreground/90 leading-tight">Megsy OS</span>
+                        <span className="text-[9px] font-bold px-1.5 py-px rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">PRO</span>
+                      </div>
+                      <div className="text-[12.5px] text-muted-foreground leading-tight mt-0.5 truncate whitespace-nowrap">كمبيوتر سحابي يبني وينشر تطبيقاتك</div>
+                    </div>
+                  </motion.button>
                 </div>
               )}
             </motion.div>
