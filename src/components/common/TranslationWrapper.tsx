@@ -200,13 +200,26 @@ interface TranslationWrapperProps {
 const TranslationWrapper = ({ children }: TranslationWrapperProps) => {
   const appliedLangRef = useRef(localStorage.getItem("language") || "en");
 
-  // 1. Boot Google Translate + hide UI
+  // 1. Boot Google Translate + hide UI (deferred — only when user picked a non-English lang,
+  //    or after the page is idle. Avoids loading 200KB+ of Google Translate JS on every page.)
   useEffect(() => {
-    initGoogleTranslate();
+    const savedLang = localStorage.getItem("language") || "en";
 
     const style = document.createElement("style");
     style.textContent = HIDE_CSS;
     document.head.appendChild(style);
+
+    const boot = () => initGoogleTranslate();
+
+    let bootTimer: number | undefined;
+    if (savedLang !== "en") {
+      // User actively translated → boot ASAP
+      boot();
+    } else if (typeof (window as any).requestIdleCallback === "function") {
+      (window as any).requestIdleCallback(boot, { timeout: 4000 });
+    } else {
+      bootTimer = window.setTimeout(boot, 2500);
+    }
 
     const cleanUp = () => {
       document.body.style.top = "0px";
@@ -248,6 +261,7 @@ const TranslationWrapper = ({ children }: TranslationWrapperProps) => {
       bodyObs.disconnect();
       docObs.disconnect();
       clearInterval(iv);
+      if (bootTimer) clearTimeout(bootTimer);
       document.head.removeChild(style);
     };
   }, []);
