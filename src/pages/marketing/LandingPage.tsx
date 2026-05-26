@@ -24,6 +24,7 @@ const MegsyChatModelsSection = lazy(() => import("@/components/landing/MegsyChat
 const MegsyImageModelsSection = lazy(() => import("@/components/landing/MegsyImageModelsSection"));
 const MegsyCodeModelsSection = lazy(() => import("@/components/landing/MegsyCodeModelsSection"));
 const MegsyOSSection = lazy(() => import("@/components/landing/MegsyOSSection"));
+const CreatorToolsSection = lazy(() => import("@/components/landing/CreatorToolsSection"));
 const HowItWorks = lazy(() => import("@/components/landing/HowItWorks"));
 const PricingPreview = lazy(() => import("@/components/landing/PricingPreview"));
 const ReferralSection = lazy(() => import("@/components/landing/ReferralSection"));
