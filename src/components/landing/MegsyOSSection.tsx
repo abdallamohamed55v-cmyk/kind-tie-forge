@@ -80,7 +80,11 @@ const MegsyOSSection = () => {
   const current = modes[index];
 
   return (
-    <section className="relative overflow-hidden bg-black py-16 md:py-24">
+    <section className="relative overflow-hidden bg-[#0a0518] py-16 md:py-24">
+      {/* Ambient color wash */}
+      <div className="pointer-events-none absolute -left-32 top-1/2 -z-0 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-fuchsia-600/20 blur-[160px]" />
+      <div className="pointer-events-none absolute -right-32 top-1/2 -z-0 h-[500px] w-[500px] -translate-y-1/2 rounded-full bg-indigo-600/20 blur-[160px]" />
+      <div className="pointer-events-none absolute left-1/2 top-0 -z-0 h-[300px] w-[700px] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[140px]" />
       <div className="mx-auto max-w-6xl px-5 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
