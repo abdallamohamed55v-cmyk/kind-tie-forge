@@ -4224,6 +4224,10 @@ Ask me anything to get started!`;
                   onQuestionSkip={handleQuestionSkip}
                   activeAgent={chatMode !== "normal" ? chatMode : (selectedAgent?.id || null)}
                   onAgentSelect={(agent: AgentDef) => {
+                    if (agent.id === "operator") {
+                      tryActivateMegsyOs();
+                      return;
+                    }
                     const modeMap: Record<string, ChatMode> = { learning: "learning", shopping: "shopping", "deep-research": "deep-research", operator: "operator" };
                     if (modeMap[agent.id]) {
                       setSelectedAgent(null);
