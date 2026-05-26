@@ -3466,7 +3466,8 @@ Ask me anything to get started!`;
                 setPlusExpanded(false);
               }
             }}
-            className="flex justify-center pb-2 pt-2 shrink-0 cursor-grab active:cursor-grabbing touch-none"
+            onClick={() => setPlusMenuOpen(false)}
+            className="flex justify-center pb-2 pt-2 shrink-0 cursor-pointer touch-none"
           >
             <div className="w-10 h-1.5 rounded-full bg-foreground/20" />
           </motion.div>
