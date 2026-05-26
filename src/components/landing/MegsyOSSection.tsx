@@ -80,7 +80,7 @@ const MegsyOSSection = () => {
   const current = modes[index];
 
   return (
-    <section className="relative bg-black py-16 md:py-24">
+    <section className="relative overflow-hidden bg-black py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -101,23 +101,6 @@ const MegsyOSSection = () => {
         </motion.div>
 
         <div className="relative">
-          {/* Edge nav arrows — iOS 26 glass, peek from page edges */}
-          <button
-            onClick={() => go(-1)}
-            aria-label="Previous mode"
-            className="group absolute left-0 top-1/2 z-20 flex h-16 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-end rounded-full border border-white/15 bg-white/[0.07] pr-2 text-white shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] backdrop-blur-2xl backdrop-saturate-150 transition-all hover:bg-white/[0.12] active:scale-95 md:h-20 md:w-16 md:pr-3"
-          >
-            <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-0.5 md:h-6 md:w-6" strokeWidth={2.2} />
-          </button>
-          <button
-            onClick={() => go(1)}
-            aria-label="Next mode"
-            className="group absolute right-0 top-1/2 z-20 flex h-16 w-12 -translate-y-1/2 translate-x-1/2 items-center justify-start rounded-full border border-white/15 bg-white/[0.07] pl-2 text-white shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] backdrop-blur-2xl backdrop-saturate-150 transition-all hover:bg-white/[0.12] active:scale-95 md:h-20 md:w-16 md:pl-3"
-          >
-            <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5 md:h-6 md:w-6" strokeWidth={2.2} />
-          </button>
-
-
           {/* Card */}
           <div className="relative mx-auto w-full max-w-2xl">
             <AnimatePresence mode="wait">
@@ -172,8 +155,25 @@ const MegsyOSSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Edge nav arrows — iOS 26 glass, peek from page edges */}
+      <button
+        onClick={() => go(-1)}
+        aria-label="Previous mode"
+        className="group absolute left-0 top-1/2 z-20 flex h-16 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-end rounded-full border border-white/15 bg-white/[0.07] pr-2 text-white shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-2xl backdrop-saturate-150 transition-all hover:bg-white/[0.13] active:scale-95 md:h-20 md:w-16 md:pr-3"
+      >
+        <ChevronLeft className="h-5 w-5 transition-transform group-hover:-translate-x-0.5 md:h-6 md:w-6" strokeWidth={2.2} />
+      </button>
+      <button
+        onClick={() => go(1)}
+        aria-label="Next mode"
+        className="group absolute right-0 top-1/2 z-20 flex h-16 w-12 -translate-y-1/2 translate-x-1/2 items-center justify-start rounded-full border border-white/15 bg-white/[0.07] pl-2 text-white shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-2xl backdrop-saturate-150 transition-all hover:bg-white/[0.13] active:scale-95 md:h-20 md:w-16 md:pl-3"
+      >
+        <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5 md:h-6 md:w-6" strokeWidth={2.2} />
+      </button>
     </section>
   );
 };
+
 
 export default MegsyOSSection;
