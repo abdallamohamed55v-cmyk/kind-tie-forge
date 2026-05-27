@@ -164,7 +164,8 @@ const AcceptWorkspaceInvitePage = lazy(() => import("./pages/auth/AcceptWorkspac
 
 const queryClient = new QueryClient();
 
-const LazyFallback = () => <div className="h-screen bg-background" />;
+import PageLoader from "@/components/common/PageLoader";
+const LazyFallback = () => <PageLoader />;
 
 // Scroll to top on every route change
 const ScrollToTop = () => {
